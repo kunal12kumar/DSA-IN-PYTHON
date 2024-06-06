@@ -1,0 +1,133 @@
+#creating a class node
+class Node:
+    def __init__(self,item=None,next=None):
+        self.item=item
+        self.next=next
+
+#creating a singly linked list class
+class sll:
+    def __init__(self,start=None):
+        self.start=start
+    
+    #code for check whether list is empty or not
+    def isempty(self):
+        return self.start 
+    
+    # adding element at the start
+    
+    def addatstart(self,data):
+        #to add new at beginnig new node should keep the referce of just after it. Which is present in teh start.So,we will copy the refernce from there to new node next.
+        #ceating a node
+        n=Node(data,self.start) #creating a new object which is to be insert
+        self.start=n   #copying reference ot the start
+        
+        
+#creating a method to add element in the last
+    
+    def addatlast(self,data):
+        #at last therfore it has none as next
+        #first creating an node having none as reference
+        t=Node(data)
+        
+        #now there will be two condition whether list is empty or not
+        #if empty then add easily giving its reference to start.otherwise we need find the last element and give new node reference ot the last.
+        
+        #first of all check whether list is empty or not 
+        
+        if self.isempty()!=None:
+            temp=self.start #temp refering to first element we are using transverse here
+            while temp.next!=None: #trnsversing 
+                temp=temp.next 
+            temp.next=t  # giving the refernce of new refernce to the last element 
+        else:
+            self.start=t  # if empty the get add at first 
+            
+    # method to search element       
+    def search(self,value): #value which need to search 
+        temp=self.start  
+        while temp!=None: 
+            if temp.item==value:  #matching value
+                return temp     #if get match the return 
+            temp=temp.next      #if not match then refering to next element
+            
+            #this is for same task but diff code
+        # temp=self.start
+        # if self.isempty!=None:
+        #     while temp.item!=value: 
+        #         temp=temp.next
+        #     return temp
+        # else:
+        #     return None
+   # adding after specific element     
+    def addatspecific(self,temp,data):
+        result=self.search(temp)  #searching for the value afer which element is to be add
+        if result!=None:  
+            k=Node(data,result.next)  #creating a new object with data
+            result.next=k    #copying the referebce to that element
+    # method to print list        
+    def printlist(self):
+        temp=self.start
+        while temp!=None:
+            print(temp.item)
+            temp=temp.next
+            
+    #now to delete node
+    def delfromstart(self):
+        # in this idea is that if we have to delete some element then if we remove the refernce fo the element from its previous element then it get deleted 
+        #But we do this by refering its next element in the place of that element(to be deleted )
+        if self.isempty()!=None:   
+            self.start=self.start.next #(refering to next elememt to that to be deleted)
+        else:
+            print("Your list is empty")
+            
+    #now to delete from last
+    
+    def delfromlast(self):
+        if self.isempty()==None:
+            pass
+        elif self.start.next==None: #if only to one element
+            self.start=None
+        else: #for more than one 
+            temp=self.start
+            if temp.next.next!=None: #it denote the element after leaving one from temp
+                temp=temp.next #it denote the next elemnt ot temp
+            temp=temp.next
+            
+    def delfromspecific(self,data):
+        if self.start==None: # it to if empty 
+            pass
+        elif self.start.next==None: # it for the one element
+            if self.start.item==data:
+                self.start=None
+        else: #for more the one
+            temp=self.start
+            if self.start.item==data: #if two 
+                self.start=temp.next
+            else:  # if for than two
+                while temp.next!=None:
+                    if temp.next.item!=data:
+                        temp.next=temp.next.next
+                        break
+                    temp=temp.next
+              
+            
+        
+        
+            
+        
+        
+        
+#code driver
+mylist=sll()
+print(mylist.isempty())
+mylist.addatstart(10)
+mylist.addatstart(40)
+mylist.addatstart(70)
+mylist.addatlast(57)
+mylist.addatlast(20)
+mylist.addatlast(67)
+mylist.addatspecific(57,80)
+mylist.addatspecific(20,99)
+mylist.delfromstart()
+mylist.delfromspecific(57)
+mylist.printlist()
