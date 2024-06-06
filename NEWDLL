@@ -1,0 +1,187 @@
+#this is a programm to write the code   fro doubly linked list
+
+class Node:
+    def __init__(self,item=None,pre=None,next=None):
+        self.item=item
+        self.pre=pre
+        self.next=next
+class dll:
+    def __init__(self,start=None):
+        self.start=start
+    
+    # checking for empty 
+    def isempty(self):
+        return self.start
+    
+    # adding element at start
+    
+    def addatstart(self,data):
+        k=Node(data,None,self.start)
+        if self.isempty()!=None:
+            self.start.pre=k  #in this we are copying the refernce of new node to the previous of the old node
+        self.start=k # in this we are copying he referevnce of new node ot the start.
+        
+    # code to add element in the last
+    
+    def addatlast(self,data):
+        temp=self.start   #creating a reference object for transvering 
+        while temp.next!=None: #to find last object
+            temp=temp.next
+        k=Node(data) #creating a new node
+        temp.next=k # copying teh new node reference to the last element
+        k.pre=temp.next #copying the last element reference to the new node in previous
+        
+        #sir code
+        # k=Node(temp,data,None)
+        # if temp==None:
+        #     self.start=k
+        # else:
+        #     temp.next=k        
+        
+    #Code to search element
+    def search(self,value):
+        temp=self.start
+        while temp!=None:
+            if  temp.item==value:
+                return temp
+            else:
+                temp=temp.next
+    # code to add element at the specific element
+    
+    def addat_specific(self,place,data):
+        result=self.search(place)
+        if result==None:
+            k=Node(data,result,None)
+            result.next=k
+        else:
+            k=Node(data)
+            k.pre=result
+            k.next=result.next
+            result.next.pre=k
+            result.next=k
+            
+            
+            #sir code
+            # k=Node(data,result,result.next)
+            # if result.next!=None:
+            #     result.next.pre=k
+            # result.next=k
+    
+    # code to print the element of the last
+        
+    
+    def printlist(self):
+        temp=self.start
+        if self.start!=None:
+            while temp.next!=None:
+                print(temp.item)
+                temp=temp.next
+            print(temp.item)
+            
+    # to delete from start
+    
+    def delatstart(self):
+        # result=self.search(data)
+        if self.start.next==None:
+            self.start=None
+        elif self.start==None:
+            pass
+        else:
+            self.start=self.start.next
+            self.start.next.pre=None
+        
+    # to delete from last
+    
+    def delatlast(self):
+        if self.start==None:
+            pass
+        elif self.start.next==None:
+            self.start=None
+        else:
+            
+            temp=self.start
+            while temp.next.next!=None:
+                temp=temp.next
+            temp.next=None
+            
+            #sir code
+        # else:
+        #     temp=self.start
+        #     while temp.next!=None:
+        #         temp=temp.next
+        #     temp.pre.next=None       #in this we refering to the previous node from the last node and assigning the none to the second last node
+        
+    #to delete from specific 
+    
+    def delatspecific(self,value):
+        if self.start==None:
+            pass
+        elif self.start.next==None: # it for the one element
+            if self.start.item==value:
+                self.start=None
+        else:
+            result=self.search(value)
+            result.next=result.next.next
+            result.next.next.pre=result.next
+            
+    def delsitem(self,data):
+        if self.start==None:
+            pass
+        else:
+            temp=self.start
+            while temp!=None:
+                if temp.item==data:
+                    if temp.next!=None:
+                        temp.next.pre=temp.next
+                    elif temp.pre!=None:
+                        temp.pre.next=temp.next
+                    else:
+                        self.start=temp.next
+                    break
+                temp=temp.next
+                
+    def __iter__(self):
+        return Dlliterator(self.start)
+class Dlliterator:
+    def __init__(self,start):
+        self.current=start
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if not self.current:
+            raise StopIteration
+        data=self.current.item
+        self.current=self.current.item
+        return data
+
+    
+        
+           
+        
+        
+#driver code
+dll()
+mylist=dll()
+mylist.addatstart(35)
+mylist.addatstart(67)
+mylist.addatstart(78)
+mylist.addatlast(23)
+mylist.addatlast(20)
+mylist.addatlast(27)
+mylist.addatlast(235)
+mylist.addatlast(239)
+mylist.addatlast(232)
+mylist.addatlast(237)
+mylist.delatlast()
+mylist.addatlast(45)
+mylist.addatlast(889)
+mylist.delatstart()
+mylist.delatlast()
+# mylist.delatspecific(889)
+mylist.addat_specific(67,89)
+mylist.addat_specific(89,99)
+mylist.delsitem(239)
+
+mylist.printlist()
+            
+    
