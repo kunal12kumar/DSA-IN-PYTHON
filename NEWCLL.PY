@@ -27,35 +27,35 @@ class cll:
     #method to add at start
     
     def addatstart(self,data):
-        k=Node(data)
+        k=Node(data) #creating a node
         if self.isempty()==None:
             k.next=k
             self.last=k
         else:
-            k.next=self.last.next
-            self.last.next=k
+            k.next=self.last.next  #copying first node to new node
+            self.last.next=k     #copying new node to last node
             
             
     #method to add at last
     
     def addatlast(self,data):
         k=Node(data)
-        if self.isempty()==None:
+        if self.isempty()==None:  #is list is empty
             k.next=k
             self.last=k
-        elif self.last.next==None:
+        elif self.last.next==None:  # if one element is present 
             k.next=self.last.next
             self.next=k
-        else:
+        else:                #if more than one element is present
             k.next=self.last.next
             self.last.next=k
             self.last=k
-            
-    def search(self,data):
-        temp=self.start.next
+      #code to search the element       
+    def search(self,data):   
+        temp=self.start.next  # in this we are assingin alternate node to temp
         if self.isempty()==None:
             return None
-        else:
+        else: # 
             while temp!=self.last:
                 if temp.item==data:
                     return temp
@@ -69,9 +69,9 @@ class cll:
     # method to add after specific element
     
     def addatspecific(self,temp,data):
-        if temp is not None:
+        if temp is not None: # if list has element 
             n=Node(data,temp.next)
-            temp.next=n
+            temp.next=n   
             if temp==self.last:
                 self.last=n
                 
@@ -132,5 +132,4 @@ mylist.delatlast()
 # mylist.delatlast()
 # mylist.delatlast()
 # mylist.delatstart()
-mylist.printlist()
-            
+mylist.printlist()  
